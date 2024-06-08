@@ -3,23 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DPS Calculator</title>
-    <link rel="stylesheet" href="style.css">
+    <title>RotMG DPS Calculator</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="calculator">
-        <h1>DPS Calculator</h1>
-        <div>
-            <label for="damage">Damage per Hit:</label>
-            <input type="number" id="damage" placeholder="Enter damage per hit">
+    <div class="container">
+        <div class="chart-container">
+            <canvas id="dpsChart"></canvas>
         </div>
-        <div>
-            <label for="speed">Attack Speed (hits per second):</label>
-            <input type="number" id="speed" placeholder="Enter attack speed">
+        <div class="settings-container">
+            <label for="minDamage">Min DMG</label>
+            <input type="number" id="minDamage" value="0">
+
+            <label for="maxDamage">Max DMG</label>
+            <input type="number" id="maxDamage" value="0">
+
+            <label for="shotCount">Number of Shots</label>
+            <input type="number" id="shotCount" value="0">
+
+            <label for="rateOfFire">Rate of Fire</label>
+            <input type="number" id="rateOfFire" value="0">
+
+            <label for="userAttack">Attack</label>
+            <input type="number" id="userAttack" value="0">
+
+            <label for="userDexterity">Dexterity</label>
+            <input type="number" id="userDexterity" value="0">
+
+            <label for="userCritChance">Crit Chance</label>
+            <input type="number" id="userCritChance" value="0">
+
+            <label for="userCritDamage">Crit Damage</label>
+            <input type="number" id="userCritDamage" value="0">
+
+            <label for="enemyDefense">Defense</label>
+            <input type="number" id="enemyDefense" value="0">
+
+            <button id="calculateDPS">Calculate</button>
+            <button id="updateChart">Update Chart</button>
+            <button id="resetChart">Reset Chart</button>
+
+            <div id="dpsResult">DPS = 0</div>
         </div>
-        <button onclick="calculateDPS()">Calculate DPS</button>
-        <h2 id="result">DPS: 0</h2>
     </div>
-    <script src="script.js"></script>
+    <script src="js/scripts.js"></script>
 </body>
 </html>
