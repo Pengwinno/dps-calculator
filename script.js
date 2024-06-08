@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             point: function (tooltipModel, coordinates, eventOffset) {
                                 return {
                                     x: coordinates.x,
-                                    y: coordinates.y - 10 // Adjust the vertical position as needed
+                                    y: coordinates.y - 100 // Adjust the vertical position as needed
                                 };
                             }
                         }
