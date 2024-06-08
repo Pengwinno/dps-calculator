@@ -43,76 +43,74 @@ document.addEventListener('DOMContentLoaded', function () {
         // Generate defense and dps values for chart
         const defenseValues = Array.from({ length: 101 }, (_, i) => i);
         const dpsValues = defenseValues.map(defense => {
-            return (((((weaponAverage * (0.5 + userAttack / 50))) - defense) * shotCount) * ((1.5 + 6.5 * (userDexterity / 75)) * rateOfFireConfigured)) * (1 + (userCritChance * userCritDamage));
-        });
+            return (((((weaponAverage * (0.5 + userAttack / 50))) - defense) * shotCount) *
+            ((1.5 + 6.5 * (userDexterity / 75)) * rateOfFireConfigured)) *
+            (1 + (userCritChance * userCritDamage));
+    });
 
-        // Filter defense and dps values for dots every 5 units
-        const dotDefenseValues = defenseValues.filter(value => value % 5 === 0);
-        const dotDpsValues = dpsValues.filter((_, index) => index % 5 === 0);
+    // Filter defense and dps values for dots every 5 units
+    const dotDefenseValues = defenseValues.filter(value => value % 5 === 0);
+    const dotDpsValues = dpsValues.filter((_, index) => index % 5 === 0);
 
-        // Set Chart.js options
-        Chart.defaults.color = 'white'; // Set default text color
-        Chart.defaults.font.family = 'Arial'; // Set default font family
-        Chart.defaults.font.size = 12; // Set default font size
+    // Set Chart.js options
+    Chart.defaults.color = 'white'; // Set default text color
+    Chart.defaults.font.family = 'Arial'; // Set default font family
+    Chart.defaults.font.size = 12; // Set default font size
 
-        window.myChart = new Chart(dpsChart, {
-            type: 'line',
-            data: {
-                labels: defenseValues,
-                datasets: [{
-                    label: 'DPS',
-                    data: dpsValues,
-                    backgroundColor: 'rgba(0, 0, 0, 0)', // Set background color to transparent
-                    borderColor: 'white', // Set line color
-                    borderWidth: 2,
-                    pointBackgroundColor: dotDefenseValues.map(() => 'white'), // Set point color only for dots
-                    pointBorderColor: dotDefenseValues.map(() => 'white'), // Set point border color only for dots
-                    pointHoverBackgroundColor: dotDefenseValues.map(() => 'white'), // Set point hover color only for dots
-                    pointHoverBorderColor: dotDefenseValues.map(() => 'white'), // Set point hover border color only for dots
-                    pointRadius: defenseValues.map((_, index) => index % 5 === 0 ? 4 : 0), // Dots only every 5 units
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: 'white' // Set text color for y-axis
-                        }
-                    },
-                    x: {
-                        ticks: {
-                            color: 'white', // Set text color for x-axis
-                            stepSize: 5 // Set tick interval to 5
-                        },
-                        grid: {
-                            display: false // Hide grid lines on x-axis
-                        }
+    window.myChart = new Chart(dpsChart, {
+        type: 'line',
+        data: {
+            labels: defenseValues,
+            datasets: [{
+                label: 'DPS',
+                data: dpsValues,
+                backgroundColor: 'rgba(0, 0, 0, 0)', // Set background color to transparent
+                borderColor: 'white', // Set line color
+                borderWidth: 2,
+                pointBackgroundColor: dotDefenseValues.map(() => 'white'), // Set point color only for dots
+                pointBorderColor: dotDefenseValues.map(() => 'white'), // Set point border color only for dots
+                pointHoverBackgroundColor: dotDefenseValues.map(() => 'white'), // Set point hover color only for dots
+                pointHoverBorderColor: dotDefenseValues.map(() => 'white'), // Set point hover border color only for dots
+                pointRadius: defenseValues.map((_, index) => index % 5 === 0 ? 4 : 0), // Dots only every 5 units
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        color: 'white' // Set text color for y-axis
                     }
                 },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: 'white' // Set text color for legend
-                        }
+                x: {
+                    ticks: {
+                        color: 'white', // Set text color for x-axis
+                        stepSize: 5 // Set tick interval to 5
                     },
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                return `Defense: ${context.label}, DPS: ${context.raw.toFixed(2)}`;
-                            }
+                    grid: {
+                        display: false // Hide grid lines on x-axis
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'white' // Set text color for legend
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function (context) {
+                            return `Defense: ${context.label}, DPS: ${context.raw.toFixed(2)}`;
                         }
                     }
                 }
             }
-        });
-    }
+        }
+    });
+}
 
-
-    // Initialize chart with default values
-    updateChart();
-
-
-    calculateBtn.addEventListener('click', calculateDPS);
+calculateBtn.addEventListener('click', calculateDPS);
 });
+</script>
 
