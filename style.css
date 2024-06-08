@@ -1,21 +1,14 @@
 .container {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    justify-content: space-between; /* Align items with space between them */
     margin-top: 50px;
 }
 
-.inputs {
-    margin-bottom: 20px;
-}
-
-input, button {
-    margin: 5px;
-}
-
 .chart-container {
-    width: 80%;
-    max-width: 600px;
-    height: 400px;
+    flex: 1; /* Allow chart to grow to take up remaining space */
+}
+
+.inputs {
+    width: 300px; /* Fixed width for input container */
+    margin-left: 20px; /* Add margin for spacing */
 }

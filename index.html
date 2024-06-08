@@ -4,45 +4,177 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RotMG DPS Calculator</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+        }
+        .chart-container {
+            flex: 1;
+        }
+        .inputs {
+            width: 300px;
+            margin-left: 20px;
+        }
+        .inputs label {
+            display: block;
+            margin-top: 10px;
+        }
+        .inputs input, .inputs button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: white;
+            border-radius: 5px;
+        }
+        .inputs button {
+            background-color: #1A1A1A;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="inputs">
-            <label for="minDamage">Min DMG</label>
-            <input type="text" id="minDamage" placeholder="0"><br>
-
-            <label for="maxDamage">Max DMG</label>
-            <input type="text" id="maxDamage" placeholder="0"><br>
-
-            <label for="shotCount">Number of Shots</label>
-            <input type="text" id="shotCount" placeholder="0"><br>
-
-            <label for="rateOfFire">Rate of Fire</label>
-            <input type="text" id="rateOfFire" placeholder="0"><br>
-
-            <label for="userAttack">Attack</label>
-            <input type="text" id="userAttack" placeholder="0"><br>
-
-            <label for="userDexterity">Dexterity</label>
-            <input type="text" id="userDexterity" placeholder="0"><br>
-
-            <label for="userCritChance">Crit Chance</label>
-            <input type="text" id="userCritChance" placeholder="0"><br>
-
-            <label for="userCritDamage">Crit Damage</label>
-            <input type="text" id="userCritDamage" placeholder="0"><br>
-
-            <label for="enemyDefense">Enemy Defense</label>
-            <input type="text" id="enemyDefense" placeholder="0"><br>
-
-            <button id="calculateBtn">Calculate</button>
-        </div>
         <div class="chart-container">
             <canvas id="dpsChart"></canvas>
         </div>
+        <div class="inputs">
+            <label for="minDamage">Min DMG</label>
+            <input type="text" id="minDamage" placeholder="0">
+
+            <label for="maxDamage">Max DMG</label>
+            <input type="text" id="maxDamage" placeholder="0">
+
+            <label for="shotCount">Number of Shots</label>
+            <input type="text" id="shotCount" placeholder="0">
+
+            <label for="rateOfFire">Rate of Fire</label>
+            <input type="text" id="rateOfFire" placeholder="0">
+
+            <label for="userAttack">Attack</label>
+            <input type="text" id="userAttack" placeholder="0">
+
+            <label for="userDexterity">Dexterity</label>
+            <input type="text" id="userDexterity" placeholder="0">
+
+            <label for="userCritChance">Crit Chance</label>
+            <input type="text" id="userCritChance" placeholder="0">
+
+            <label for="userCritDamage">Crit Damage</label>
+            <input type="text" id="userCritDamage" placeholder="0">
+
+            <label for="enemyDefense">Enemy Defense</label>
+            <input type="text" id="enemyDefense" placeholder="0">
+
+            <button id="calculateBtn">Calculate</button>
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const minDamageInput = document.getElementById('minDamage');
+            const maxDamageInput = document.getElementById('maxDamage');
+            const shotCountInput = document.getElementById('shotCount');
+            const rateOfFireInput = document.getElementById('rateOfFire');
+            const userAttackInput = document.getElementById('userAttack');
+            const userDexterityInput = document.getElementById('userDexterity');
+            const userCritChanceInput = document.getElementById('userCritChance');
+            const userCritDamageInput = document.getElementById('userCritDamage');
+            const enemyDefenseInput = document.getElementById('enemyDefense');
+
+            const calculateBtn = document.getElementById('calculateBtn');
+            const dpsChart = document.getElementById('dpsChart').getContext('2d');
+
+            function calculateDPS() {
+                // Get input values
+                const minDamage = parseFloat(minDamageInput.value);
+                const maxDamage = parseFloat(maxDamageInput.value);
+                const shotCount = parseFloat(shotCountInput.value);
+                const rateOfFire = parseFloat(rateOfFireInput.value);
+                const userAttack = parseFloat(userAttackInput.value);
+                const userDexterity = parseFloat(userDexterityInput.value);
+                const userCritChance = parseFloat(userCritChanceInput.value) / 100;
+                const userCritDamage = parseFloat(userCritDamageInput.value) / 100;
+                const enemyDefense = parseFloat(enemyDefenseInput.value);
+
+                // Calculate DPS
+                const weaponAverage = (minDamage + maxDamage) / 2;
+                const rateOfFireConfigured = rateOfFire / 100;
+                const dps = (((((weaponAverage * (0.5 + userAttack / 50))) - enemyDefense) * shotCount) * ((1.5 + 6.5 * (userDexterity / 75)) * rateOfFireConfigured)) * (1 + (userCritChance * userCritDamage));
+                const formattedDPS = dps.toFixed(2);
+
+                // Update chart
+                updateChart(enemyDefense, dps);
+            }
+
+            function updateChart(defense, dps) {
+                if (window.myChart !== undefined) {
+                    window.myChart.destroy();
+                }
+
+                // Set Chart.js options
+                Chart.defaults.color = 'white'; // Set default text color
+                Chart.defaults.font.family = 'Arial'; // Set default font family
+                Chart.defaults.font.size = 12; // Set default font size
+
+                window.myChart = new Chart(dpsChart, {
+                    type: 'line',
+                    data: {
+                        labels: Array.from({ length: 11 }, (_, i) => `Defense ${i * 10}`),
+                        datasets: [{
+                            label: 'DPS',
+                            data: Array.from({ length: 11 }, () => dps),
+                            backgroundColor: 'rgba(0, 0, 0, 0)', // Set background color to transparent
+                            borderColor: '#1A1A1A', // Set line color
+                            borderWidth: 2,
+                            pointBackgroundColor: '#1A1A1A', // Set point color
+                            pointBorderColor: '#1A1A1A', // Set point border color
+                            pointHoverBackgroundColor: '#1A1A1A', // Set point hover color
+                            pointHoverBorderColor: '#1A1A1A', // Set point hover border color
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    color: 'white' // Set text color for y-axis
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: 'white' // Set text color for x-axis
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: 'white' // Set text color for legend
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            calculateBtn.addEventListener('click', calculateDPS);
+        });
+    </script>
 </body>
 </html>
