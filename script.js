@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (window.myChart !== undefined) {
             window.myChart.destroy();
         }
-    
+
         // Generate defense and dps values for chart
         const defenseValues = Array.from({ length: 21 }, (_, i) => i * 5);
         const dpsValues = defenseValues.map(defense => {
@@ -47,12 +47,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 ((1.5 + 6.5 * (userDexterity / 75)) * rateOfFireConfigured)) *
                 (1 + (userCritChance * userCritDamage));
         });
-    
+
+        // Filter defense and dps values for dots every 5 units
+        const dotDefenseValues = defenseValues.filter(value => value % 5 === 0);
+        const dotDpsValues = dpsValues.filter((_, index) => index % 5 === 0);
+
         // Set Chart.js options
         Chart.defaults.color = 'white'; // Set default text color
         Chart.defaults.font.family = 'Arial'; // Set default font family
         Chart.defaults.font.size = 12; // Set default font size
-    
+
         window.myChart = new Chart(dpsChart, {
             type: 'line',
             data: {
@@ -63,8 +67,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     backgroundColor: 'rgba(0, 0, 0, 0)', // Set background color to transparent
                     borderColor: 'white', // Set line color
                     borderWidth: 2,
-                    pointRadius: 0, // Disable default point radius
-                    pointHitRadius: 10, // Set point hit radius for tooltip
+                    pointBackgroundColor: dotDefenseValues.map(() => 'white'), // Set point color only for dots
+                    pointBorderColor: dotDefenseValues.map(() => 'white'), // Set point border color only for dots
+                    pointHoverBackgroundColor: dotDefenseValues.map(() => 'white'), // Set point hover color only for dots
+                    pointHoverBorderColor: dotDefenseValues.map(() => 'white'), // Set point hover border color only for dots
+                    pointRadius: dotDefenseValues.map(() => 4), // Set fixed point radius for dots
                 }]
             },
             options: {
@@ -106,7 +113,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
-    
 
     calculateDPS(); // Initialize the graph immediately when the site is opened
+
+    calculateBtn.addEventListener('click', calculateDPS);
 });
