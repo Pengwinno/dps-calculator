@@ -4,56 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>RotMG DPS Calculator</title>
-    <style>
-        body {
-            background-color: #121212;
-            color: white;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container {
-            display: flex;
-            width: 90%;
-            height: 90%;
-        }
-        .chart-container {
-            flex: 3;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .inputs {
-            flex: 1;
-            margin-left: 20px;
-            display: flex;
-            flex-direction: column;
-        }
-        .inputs label {
-            margin-top: 10px;
-        }
-        .inputs input, .inputs button {
-            padding: 8px;
-            margin-top: 5px;
-            border: 1px solid #444;
-            background-color: #333;
-            color: white;
-            border-radius: 5px;
-        }
-        .inputs button {
-            background-color: #1A1A1A;
-            cursor: pointer;
-            margin-top: 20px;
-        }
-        canvas {
-            width: 100% !important;
-            height: 100% !important;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
@@ -61,33 +12,38 @@
             <canvas id="dpsChart"></canvas>
         </div>
         <div class="inputs">
-            <label for="minDamage">Min DMG</label>
-            <input type="text" id="minDamage" placeholder="0">
-
-            <label for="maxDamage">Max DMG</label>
-            <input type="text" id="maxDamage" placeholder="0">
-
-            <label for="shotCount">Number of Shots</label>
-            <input type="text" id="shotCount" placeholder="0">
-
-            <label for="rateOfFire">Rate of Fire</label>
-            <input type="text" id="rateOfFire" placeholder="0">
-
-            <label for="userAttack">Attack</label>
-            <input type="text" id="userAttack" placeholder="0">
-
-            <label for="userDexterity">Dexterity</label>
-            <input type="text" id="userDexterity" placeholder="0">
-
-            <label for="userCritChance">Crit Chance</label>
-            <input type="text" id="userCritChance" placeholder="0">
-
-            <label for="userCritDamage">Crit Damage</label>
-            <input type="text" id="userCritDamage" placeholder="0">
-
-            <label for="enemyDefense">Enemy Defense</label>
-            <input type="text" id="enemyDefense" placeholder="0">
-
+            <div class="input-group">
+                <label for="minDamage">Min DMG</label>
+                <input type="text" id="minDamage" placeholder="0">
+            </div>
+            <div class="input-group">
+                <label for="maxDamage">Max DMG</label>
+                <input type="text" id="maxDamage" placeholder="0">
+            </div>
+            <div class="input-group">
+                <label for="shotCount">Number of Shots</label>
+                <input type="text" id="shotCount" placeholder="0">
+            </div>
+            <div class="input-group">
+                <label for="rateOfFire">Rate of Fire</label>
+                <input type="text" id="rateOfFire" placeholder="0">
+            </div>
+            <div class="input-group">
+                <label for="userAttack">Attack</label>
+                <input type="text" id="userAttack" placeholder="0">
+            </div>
+            <div class="input-group">
+                <label for="userDexterity">Dexterity</label>
+                <input type="text" id="userDexterity" placeholder="0">
+            </div>
+            <div class="input-group">
+                <label for="userCritChance">Crit Chance</label>
+                <input type="text" id="userCritChance" placeholder="0">
+            </div>
+            <div class="input-group">
+                <label for="userCritDamage">Crit Damage</label>
+                <input type="text" id="userCritDamage" placeholder="0">
+            </div>
             <button id="calculateBtn">Calculate</button>
         </div>
     </div>
