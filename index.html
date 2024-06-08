@@ -143,6 +143,10 @@
                         (1 + (userCritChance * userCritDamage));
                 });
 
+                // Filter defense and dps values for dots every 5 units
+                const dotDefenseValues = defenseValues.filter(value => value % 5 === 0);
+                const dotDpsValues = dpsValues.filter((_, index) => index % 5 === 0);
+
                 // Set Chart.js options
                 Chart.defaults.color = 'white'; // Set default text color
                 Chart.defaults.font.family = 'Arial'; // Set default font family
@@ -158,10 +162,11 @@
                             backgroundColor: 'rgba(0, 0, 0, 0)', // Set background color to transparent
                             borderColor: 'white', // Set line color
                             borderWidth: 2,
-                            pointBackgroundColor: 'white', // Set point color
-                            pointBorderColor: 'white', // Set point border color
-                            pointHoverBackgroundColor: 'white', // Set point hover color
-                            pointHoverBorderColor: 'white', // Set point hover border color
+                            pointBackgroundColor: dotDefenseValues.map(() => 'white'), // Set point color only for dots
+                            pointBorderColor: dotDefenseValues.map(() => 'white'), // Set point border color only for dots
+                            pointHoverBackgroundColor: dotDefenseValues.map(() => 'white'), // Set point hover color only for dots
+                            pointHoverBorderColor: dotDefenseValues.map(() => 'white'), // Set point hover border color only for dots
+                            pointRadius: defenseValues.map((_, index) => index % 5 === 0 ? 4 : 0), // Dots only every 5 units
                         }]
                     },
                     options: {
@@ -174,7 +179,8 @@
                             },
                             x: {
                                 ticks: {
-                                    color: 'white' // Set text color for x-axis
+                                    color: 'white', // Set text color for x-axis
+                                    stepSize: 5 // Set tick interval to 5
                                 }
                             }
                         },
@@ -182,6 +188,13 @@
                             legend: {
                                 labels: {
                                     color: 'white' // Set text color for legend
+                                }
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        return `Defense: ${context.label}, DPS: ${context.raw.toFixed(2)}`;
+                                    }
                                 }
                             }
                         }
