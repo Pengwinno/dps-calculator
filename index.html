@@ -9,42 +9,52 @@
 </head>
 <body>
     <div class="container">
+        <div class="settings-container">
+            <div class="input-group">
+                <label for="minDamage">Min DMG</label>
+                <input type="number" id="minDamage" value="0">
+            </div>
+            <div class="input-group">
+                <label for="maxDamage">Max DMG</label>
+                <input type="number" id="maxDamage" value="0">
+            </div>
+            <div class="input-group">
+                <label for="shotCount">Number of Shots</label>
+                <input type="number" id="shotCount" value="0">
+            </div>
+            <div class="input-group">
+                <label for="rateOfFire">Rate of Fire</label>
+                <input type="number" id="rateOfFire" value="0">
+            </div>
+            <div class="input-group">
+                <label for="userAttack">Attack</label>
+                <input type="number" id="userAttack" value="0">
+            </div>
+            <div class="input-group">
+                <label for="userDexterity">Dexterity</label>
+                <input type="number" id="userDexterity" value="0">
+            </div>
+            <div class="input-group">
+                <label for="userCritChance">Crit Chance</label>
+                <input type="number" id="userCritChance" value="0">
+            </div>
+            <div class="input-group">
+                <label for="userCritDamage">Crit Damage</label>
+                <input type="number" id="userCritDamage" value="0">
+            </div>
+            <div class="input-group">
+                <label for="enemyDefense">Defense</label>
+                <input type="number" id="enemyDefense" value="0">
+            </div>
+            <div class="button-group">
+                <button id="calculateDPS">Calculate</button>
+                <button id="updateChart">Update Chart</button>
+                <button id="resetChart">Reset Chart</button>
+            </div>
+            <div id="dpsResult">DPS = 0</div>
+        </div>
         <div class="chart-container">
             <canvas id="dpsChart"></canvas>
-        </div>
-        <div class="settings-container">
-            <label for="minDamage">Min DMG</label>
-            <input type="number" id="minDamage" value="0">
-
-            <label for="maxDamage">Max DMG</label>
-            <input type="number" id="maxDamage" value="0">
-
-            <label for="shotCount">Number of Shots</label>
-            <input type="number" id="shotCount" value="0">
-
-            <label for="rateOfFire">Rate of Fire</label>
-            <input type="number" id="rateOfFire" value="0">
-
-            <label for="userAttack">Attack</label>
-            <input type="number" id="userAttack" value="0">
-
-            <label for="userDexterity">Dexterity</label>
-            <input type="number" id="userDexterity" value="0">
-
-            <label for="userCritChance">Crit Chance</label>
-            <input type="number" id="userCritChance" value="0">
-
-            <label for="userCritDamage">Crit Damage</label>
-            <input type="number" id="userCritDamage" value="0">
-
-            <label for="enemyDefense">Defense</label>
-            <input type="number" id="enemyDefense" value="0">
-
-            <button id="calculateDPS">Calculate</button>
-            <button id="updateChart">Update Chart</button>
-            <button id="resetChart">Reset Chart</button>
-
-            <div id="dpsResult">DPS = 0</div>
         </div>
     </div>
     <script src="js/scripts.js"></script>
