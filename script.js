@@ -95,7 +95,11 @@ document.addEventListener('DOMContentLoaded', function () {
                         display: false // Hide legend
                     },
                     tooltip: {
-                        callbacks: {} // Remove custom label callback temporarily
+                        callbacks: {
+                            label: function (context) {
+                                return `Test Tooltip`;
+                            }
+                        }
                     }
                 }
             }
@@ -105,4 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
     calculateDPS(); // Initialize the graph immediately when the site is opened
 
     calculateBtn.addEventListener('click', calculateDPS);
+    
+    console.log(defenseValues);
+    console.log(dpsValues);
 });
