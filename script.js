@@ -91,17 +91,29 @@ document.addEventListener('DOMContentLoaded', function () {
                     }
                 },
                 plugins: {
-                    legend: {
-                        display: false // Hide legend
-                    },
                     tooltip: {
+                        position: 'nearest',
+                        intersect: false,
+                        displayColors: false,
                         callbacks: {
                             label: function (context) {
-                                return `Test Tooltip`;
+                                const index = context.dataIndex;
+                                const defense = defenseValues[index];
+                                const dps = dpsValues[index].toFixed(2);
+                                return `Defense: ${defense}, DPS: ${dps}`;
+                            }
+                        },
+                        positioners: {
+                            point: function (tooltipModel, coordinates, eventOffset) {
+                                return {
+                                    x: coordinates.x,
+                                    y: coordinates.y - 10 // Adjust the vertical position as needed
+                                };
                             }
                         }
                     }
                 }
+                
             }
         });
     }
