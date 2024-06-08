@@ -113,6 +113,5 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    calculateBtn.addEventListener('click', calculateDPS);
-    calculateDPS();
+    calculateDPS(); // Initialize the graph immediately when the site is opened
 });
