@@ -126,10 +126,10 @@
                 const formattedDPS = dps.toFixed(2);
 
                 // Update chart
-                updateChart(dps);
+                updateChart(weaponAverage, userAttack, userDexterity, rateOfFireConfigured, userCritChance, userCritDamage, shotCount);
             }
 
-            function updateChart(dps) {
+            function updateChart(weaponAverage, userAttack, userDexterity, rateOfFireConfigured, userCritChance, userCritDamage, shotCount) {
                 if (window.myChart !== undefined) {
                     window.myChart.destroy();
                 }
@@ -153,12 +153,12 @@
                             label: 'DPS',
                             data: dpsValues,
                             backgroundColor: 'rgba(0, 0, 0, 0)', // Set background color to transparent
-                            borderColor: '#1A1A1A', // Set line color
+                            borderColor: 'white', // Set line color
                             borderWidth: 2,
-                            pointBackgroundColor: '#1A1A1A', // Set point color
-                            pointBorderColor: '#1A1A1A', // Set point border color
-                            pointHoverBackgroundColor: '#1A1A1A', // Set point hover color
-                            pointHoverBorderColor: '#1A1A1A', // Set point hover border color
+                            pointBackgroundColor: 'white', // Set point color
+                            pointBorderColor: 'white', // Set point border color
+                            pointHoverBackgroundColor: 'white', // Set point hover color
+                            pointHoverBorderColor: 'white', // Set point hover border color
                         }]
                     },
                     options: {
