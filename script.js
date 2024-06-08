@@ -38,7 +38,12 @@ document.addEventListener('DOMContentLoaded', function () {
         if(window.myChart !== undefined) {
             window.myChart.destroy();
         }
-
+    
+        // Set Chart.js options
+        Chart.defaults.color = 'white'; // Set default text color
+        Chart.defaults.font.family = 'Arial'; // Set default font family
+        Chart.defaults.font.size = 12; // Set default font size
+    
         window.myChart = new Chart(dpsChart, {
             type: 'line',
             data: {
@@ -46,15 +51,34 @@ document.addEventListener('DOMContentLoaded', function () {
                 datasets: [{
                     label: 'DPS',
                     data: Array.from({ length: 11 }, () => dps),
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                    borderColor: 'rgba(255, 99, 132, 1)',
-                    borderWidth: 1
+                    backgroundColor: 'rgba(0, 0, 0, 0)', // Set background color to transparent
+                    borderColor: '#1A1A1A', // Set line color
+                    borderWidth: 2,
+                    pointBackgroundColor: '#1A1A1A', // Set point color
+                    pointBorderColor: '#1A1A1A', // Set point border color
+                    pointHoverBackgroundColor: '#1A1A1A', // Set point hover color
+                    pointHoverBorderColor: '#1A1A1A', // Set point hover border color
                 }]
             },
             options: {
                 scales: {
                     y: {
-                        beginAtZero: true
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white' // Set text color for y-axis
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: 'white' // Set text color for x-axis
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white' // Set text color for legend
+                        }
                     }
                 }
             }
