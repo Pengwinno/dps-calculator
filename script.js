@@ -43,9 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Generate defense and dps values for chart
         const defenseValues = Array.from({ length: 101 }, (_, i) => i);
         const dpsValues = defenseValues.map(defense => {
-            return (((((weaponAverage * (0.5 + userAttack / 50))) - defense) * shotCount) *
-                ((1.5 + 6.5 * (userDexterity / 75)) * rateOfFireConfigured)) *
-                (1 + (userCritChance * userCritDamage));
+            return (((((weaponAverage * (0.5 + userAttack / 50))) - defense) * shotCount) * ((1.5 + 6.5 * (userDexterity / 75)) * rateOfFireConfigured)) * (1 + (userCritChance * userCritDamage));
         });
 
         // Filter defense and dps values for dots every 5 units
@@ -110,8 +108,11 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+
     // Initialize chart with default values
     updateChart();
 
+
     calculateBtn.addEventListener('click', calculateDPS);
 });
+
