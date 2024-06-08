@@ -92,8 +92,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 },
                 plugins: {
                     tooltip: {
-                        position: 'nearest',
-                        intersect: false,
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Set the background color of the tooltip
+                        titleFontFamily: 'Arial', // Set the font family for the tooltip title
+                        titleFontSize: 14, // Set the font size for the tooltip title
+                        titleFontColor: 'white', // Set the font color for the tooltip title
+                        bodyFontFamily: 'Arial', // Set the font family for the tooltip body
+                        bodyFontSize: 12, // Set the font size for the tooltip body
+                        bodyFontColor: 'white', // Set the font color for the tooltip body
+                        bodySpacing: 4, // Set the spacing between lines in the tooltip body
                         displayColors: false,
                         callbacks: {
                             label: function (context) {
@@ -103,13 +109,13 @@ document.addEventListener('DOMContentLoaded', function () {
                                 return `Defense: ${defense}, DPS: ${dps}`;
                             }
                         },
-                        caretPadding: 8, // Adjust the caret padding to move the tooltip closer to the dot
-                        caretSize: 0, // Disable the caret to prevent it from interfering with alignment
+                        caretPadding: 8,
+                        caretSize: 0,
                         positioners: {
                             point: function (tooltipModel, coordinates, eventOffset) {
                                 return {
                                     x: coordinates.x,
-                                    y: coordinates.y - 10 // Adjust the vertical position as needed
+                                    y: coordinates.y - 10
                                 };
                             }
                         }
