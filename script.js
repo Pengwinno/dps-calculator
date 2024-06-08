@@ -80,6 +80,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         beginAtZero: true,
                         ticks: {
                             color: 'white' // Set text color for y-axis
+                        },
+                        grid: {
+                            color: 'rgba(128, 128, 128, 0.2)' // Set grid line color for y-axis
                         }
                     },
                     x: {
