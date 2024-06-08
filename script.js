@@ -32,10 +32,10 @@ document.addEventListener('DOMContentLoaded', function () {
             (1 + (userCritChance * userCritDamage));
 
         // Update chart
-        updateChart(weaponAverage, userAttack, userDexterity, rateOfFireConfigured, userCritChance, userCritDamage, shotCount);
+        updateChart(weaponAverage, userAttack, userDexterity, rateOfFireConfigured, userCritChance, userCritDamage, shotCount, enemyDefense);
     }
 
-    function updateChart(weaponAverage = 0, userAttack = 0, userDexterity = 0, rateOfFireConfigured = 0, userCritChance = 0, userCritDamage = 0, shotCount = 0) {
+    function updateChart(weaponAverage = 0, userAttack = 0, userDexterity = 0, rateOfFireConfigured = 0, userCritChance = 0, userCritDamage = 0, shotCount = 0, enemyDefense = 0) {
         if (window.myChart !== undefined) {
             window.myChart.destroy();
         }
