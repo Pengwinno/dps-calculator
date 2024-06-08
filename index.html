@@ -108,82 +108,107 @@
             const dpsChart = document.getElementById('dpsChart').getContext('2d');
 
             function calculateDPS() {
-                // Get input values
-                const minDamage = parseFloat(minDamageInput.value);
-                const maxDamage = parseFloat(maxDamageInput.value);
-                const shotCount = parseFloat(shotCountInput.value);
-                const rateOfFire = parseFloat(rateOfFireInput.value);
-                const userAttack = parseFloat(userAttackInput.value);
-                const userDexterity = parseFloat(userDexterityInput.value);
-                const userCritChance = parseFloat(userCritChanceInput.value) / 100;
-                const userCritDamage = parseFloat(userCritDamageInput.value) / 100;
-                const enemyDefense = parseFloat(enemyDefenseInput.value);
+                try {
+                    // Get input values
+                    const minDamage = parseFloat(minDamageInput.value);
+                    const maxDamage = parseFloat(maxDamageInput.value);
+                    const shotCount = parseFloat(shotCountInput.value);
+                    const rateOfFire = parseFloat(rateOfFireInput.value);
+                    const userAttack = parseFloat(userAttackInput.value);
+                    const userDexterity = parseFloat(userDexterityInput.value);
+                    const userCritChance = parseFloat(userCritChanceInput.value) / 100;
+                    const userCritDamage = parseFloat(userCritDamageInput.value) / 100;
+                    const enemyDefense = parseFloat(enemyDefenseInput.value);
 
-                // Calculate DPS
-                const weaponAverage = (minDamage + maxDamage) / 2;
-                const rateOfFireConfigured = rateOfFire / 100;
-                const dps = (((((weaponAverage * (0.5 + userAttack / 50))) - enemyDefense) * shotCount) * ((1.5 + 6.5 * (userDexterity / 75)) * rateOfFireConfigured)) * (1 + (userCritChance * userCritDamage));
-                const formattedDPS = dps.toFixed(2);
+                    // Ensure all inputs are valid numbers
+                    if (isNaN(minDamage) || isNaN(maxDamage) || isNaN(shotCount) || isNaN(rateOfFire) ||
+                        isNaN(userAttack) || isNaN(userDexterity) || isNaN(userCritChance) ||
+                        isNaN(userCritDamage) || isNaN(enemyDefense)) {
+                        alert('Please enter valid numerical values.');
+                        return;
+                    }
 
-                // Update chart
-                updateChart(weaponAverage, userAttack, userDexterity, rateOfFireConfigured, userCritChance, userCritDamage, shotCount);
+                    // Calculate DPS
+                    const weaponAverage = (minDamage + maxDamage) / 2;
+                    const rateOfFireConfigured = rateOfFire / 100;
+                    const dps = (((((weaponAverage * (0.5 + userAttack / 50))) - enemyDefense) * shotCount) *
+                        ((1.5 + 6.5 * (userDexterity / 75)) * rateOfFireConfigured)) *
+                        (1 + (userCritChance * userCritDamage));
+                    const formattedDPS = dps.toFixed(2);
+
+                    // Update chart
+                    updateChart(weaponAverage, userAttack, userDexterity, rateOfFireConfigured, userCritChance, userCritDamage, shotCount);
+
+                    console.log(`DPS: ${formattedDPS}`);  // Debug: print calculated DPS
+                } catch (error) {
+                    console.error('Error calculating DPS:', error);
+                }
             }
 
             function updateChart(weaponAverage, userAttack, userDexterity, rateOfFireConfigured, userCritChance, userCritDamage, shotCount) {
-                if (window.myChart !== undefined) {
-                    window.myChart.destroy();
-                }
+                try {
+                    if (window.myChart !== undefined) {
+                        window.myChart.destroy();
+                    }
 
-                // Generate defense and dps values for chart
-                const defenseValues = Array.from({ length: 101 }, (_, i) => i);
-                const dpsValues = defenseValues.map(defense => {
-                    return (((((weaponAverage * (0.5 + userAttack / 50))) - defense) * shotCount) * ((1.5 + 6.5 * (userDexterity / 75)) * rateOfFireConfigured)) * (1 + (userCritChance * userCritDamage));
-                });
+                    // Generate defense and dps values for chart
+                    const defenseValues = Array.from({ length: 101 }, (_, i) => i);
+                    const dpsValues = defenseValues.map(defense => {
+                        return (((((weaponAverage * (0.5 + userAttack / 50))) - defense) * shotCount) *
+                            ((1.5 + 6.5 * (userDexterity / 75)) * rateOfFireConfigured)) *
+                            (1 + (userCritChance * userCritDamage));
+                    });
 
-                // Set Chart.js options
-                Chart.defaults.color = 'white'; // Set default text color
-                Chart.defaults.font.family = 'Arial'; // Set default font family
-                Chart.defaults.font.size = 12; // Set default font size
+                    console.log('Defense Values:', defenseValues);  // Debug: print defense values
+                    console.log('DPS Values:', dpsValues);  // Debug: print DPS values
 
-                window.myChart = new Chart(dpsChart, {
-                    type: 'line',
-                    data: {
-                        labels: defenseValues,
-                        datasets: [{
-                            label: 'DPS',
-                            data: dpsValues,
-                            backgroundColor: 'rgba(0, 0, 0, 0)', // Set background color to transparent
-                            borderColor: 'white', // Set line color
-                            borderWidth: 2,
-                            pointBackgroundColor: 'white', // Set point color
-                            pointBorderColor: 'white', // Set point border color
-                            pointHoverBackgroundColor: 'white', // Set point hover color
-                            pointHoverBorderColor: 'white', // Set point hover border color
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            y: {
-                                beginAtZero: true,
-                                ticks: {
-                                    color: 'white' // Set text color for y-axis
+                    // Set Chart.js options
+                    Chart.defaults.color = 'white'; // Set default text color
+                    Chart.defaults.font.family = 'Arial'; // Set default font family
+                    Chart.defaults.font.size = 12; // Set default font size
+
+                    window.myChart = new Chart(dpsChart, {
+                        type: 'line',
+                        data: {
+                            labels: defenseValues,
+                            datasets: [{
+                                label: 'DPS',
+                                data: dpsValues,
+                                backgroundColor: 'rgba(0, 0, 0, 0)', // Set background color to transparent
+                                borderColor: 'white', // Set line color
+                                borderWidth: 2,
+                                pointBackgroundColor: 'white', // Set point color
+                                pointBorderColor: 'white', // Set point border color
+                                pointHoverBackgroundColor: 'white', // Set point hover color
+                                pointHoverBorderColor: 'white', // Set point hover border color
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true,
+                                    ticks: {
+                                        color: 'white' // Set text color for y-axis
+                                    }
+                                },
+                                x: {
+                                    ticks: {
+                                        color: 'white' // Set text color for x-axis
+                                    }
                                 }
                             },
-                            x: {
-                                ticks: {
-                                    color: 'white' // Set text color for x-axis
-                                }
-                            }
-                        },
-                        plugins: {
-                            legend: {
-                                labels: {
-                                    color: 'white' // Set text color for legend
+                            plugins: {
+                                legend: {
+                                    labels: {
+                                        color: 'white' // Set text color for legend
+                                    }
                                 }
                             }
                         }
-                    }
-                });
+                    });
+                } catch (error) {
+                    console.error('Error updating chart:', error);
+                }
             }
 
             calculateBtn.addEventListener('click', calculateDPS);
