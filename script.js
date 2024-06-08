@@ -95,14 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         display: false // Hide legend
                     },
                     tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                const index = context.dataIndex;
-                                const defense = defenseValues[index];
-                                const dps = dpsValues[index].toFixed(2);
-                                return `Defense: ${defense}, DPS: ${dps}`;
-                            }
-                        }
+                        callbacks: {} // Remove custom label callback temporarily
                     }
                 }
             }
