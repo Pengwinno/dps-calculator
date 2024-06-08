@@ -85,10 +85,10 @@ document.addEventListener('DOMContentLoaded', function () {
                     x: {
                         ticks: {
                             color: 'white', // Set text color for x-axis
+                            maxTicksLimit: 21 // Specify the maximum number of ticks
                         },
-                        grid:
-                        {
-                            display: true // Hide grid lines on x-axis
+                        grid: {
+                            display: false // Hide grid lines on x-axis
                         }
                     }
                 },
