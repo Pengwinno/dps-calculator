@@ -14,12 +14,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function calculateDPS() {
         // Get input values or default to 0
-        const minDamage = parseFloat(minDamageInput.value) || 0;
-        const maxDamage = parseFloat(maxDamageInput.value) || 0;
-        const shotCount = parseFloat(shotCountInput.value) || 0;
-        const rateOfFire = parseFloat(rateOfFireInput.value) || 0;
-        const userAttack = parseFloat(userAttackInput.value) || 0;
-        const userDexterity = parseFloat(userDexterityInput.value) || 0;
+        const minDamage = parseFloat(minDamageInput.value) || 100;
+        const maxDamage = parseFloat(maxDamageInput.value) || 250;
+        const shotCount = parseFloat(shotCountInput.value) || 1;
+        const rateOfFire = parseFloat(rateOfFireInput.value) || 100;
+        const userAttack = parseFloat(userAttackInput.value) || 75;
+        const userDexterity = parseFloat(userDexterityInput.value) || 75;
         const userCritChance = parseFloat(userCritChanceInput.value) / 100 || 0;
         const userCritDamage = parseFloat(userCritDamageInput.value) / 100 || 0;
         const enemyDefense = parseFloat(enemyDefenseInput.value) || 0;
@@ -85,7 +85,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     x: {
                         ticks: {
                             color: 'white', // Set text color for x-axis
-                            stepSize: 5 // Set tick interval to 5
                         },
                         grid:
                         {
