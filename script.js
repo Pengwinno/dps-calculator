@@ -48,10 +48,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 (1 + (userCritChance * userCritDamage));
         });
 
-        // Filter defense and dps values for dots every 5 units
-        const dotDefenseValues = defenseValues.filter(value => value % 5 === 0);
-        const dotDpsValues = dpsValues.filter((_, index) => index % 5 === 0);
-
         // Set Chart.js options
         Chart.defaults.color = 'white'; // Set default text color
         Chart.defaults.font.family = 'Arial'; // Set default font family
@@ -67,11 +63,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     backgroundColor: 'rgba(0, 0, 0, 0)', // Set background color to transparent
                     borderColor: 'white', // Set line color
                     borderWidth: 2,
-                    pointBackgroundColor: dotDefenseValues.map(() => 'white'), // Set point color only for dots
-                    pointBorderColor: dotDefenseValues.map(() => 'white'), // Set point border color only for dots
-                    pointHoverBackgroundColor: dotDefenseValues.map(() => 'white'), // Set point hover color only for dots
-                    pointHoverBorderColor: dotDefenseValues.map(() => 'white'), // Set point hover border color only for dots
-                    pointRadius: dotDefenseValues.map(() => 4), // Set fixed point radius for dots
+                    pointRadius: 4, // Set point radius
+                    pointBackgroundColor: 'white', // Set point color
+                    pointBorderColor: 'white', // Set point border color
                 }]
             },
             options: {
