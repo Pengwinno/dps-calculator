@@ -114,4 +114,5 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     calculateBtn.addEventListener('click', calculateDPS);
+    calculateDPS();
 });
