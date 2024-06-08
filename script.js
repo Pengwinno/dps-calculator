@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     pointRadius: 4, // Set point radius
                     pointBackgroundColor: 'white', // Set point color
                     pointBorderColor: 'white', // Set point border color
-                    hoverRadius: 8 // Set hover radius to increase area for tooltip trigger
+                    hoverRadius: 16 // Set hover radius to increase area for tooltip trigger
                 }]
             },
             options: {
