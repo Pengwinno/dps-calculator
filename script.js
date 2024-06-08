@@ -103,17 +103,18 @@ document.addEventListener('DOMContentLoaded', function () {
                                 return `Defense: ${defense}, DPS: ${dps}`;
                             }
                         },
+                        caretPadding: 8, // Adjust the caret padding to move the tooltip closer to the dot
+                        caretSize: 0, // Disable the caret to prevent it from interfering with alignment
                         positioners: {
                             point: function (tooltipModel, coordinates, eventOffset) {
                                 return {
                                     x: coordinates.x,
-                                    y: coordinates.y - 200 // Adjust the vertical position as needed
+                                    y: coordinates.y - 10 // Adjust the vertical position as needed
                                 };
                             }
                         }
                     }
                 }
-                
             }
         });
     }
