@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 return `Defense: ${defense}, DPS: ${dps}`;
                             }
                         },
-                        backgroundColor: 'rgba(0, 0, 0, 0.8)', // Tooltip background color
+                        backgroundColor: '#1A1A1A',
                         titleFont: {
                             family: 'Arial',
                             size: 14,

@@ -4,17 +4,23 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-}
-
-.container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
 }
 
+.container {
+    display: flex;
+    width: 90%;
+    height: 90%;
+}
+
 .chart-container {
     flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: #000000;
     padding: 20px;
     border-radius: 10px;
@@ -22,9 +28,11 @@ body {
 
 .inputs {
     flex: 1;
-    max-width: 300px;
-    padding: 20px;
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
     background-color: #2c2c2c;
+    padding: 20px;
     border-radius: 10px;
 }
 
@@ -64,6 +72,6 @@ button:hover {
 }
 
 canvas {
-    width: 100%;
-    height: auto;
+    width: 100% !important;
+    height: 100% !important;
 }
