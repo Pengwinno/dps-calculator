@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // Set Chart.js options
-        Chart.defaults.color = 'white'; // Set default text color
+        Chart.defaults.color = '#FFFFFF'; // Set default text color
         Chart.defaults.font.family = 'Arial'; // Set default font family
         Chart.defaults.font.size = 12; // Set default font size
 
@@ -59,11 +59,11 @@ document.addEventListener('DOMContentLoaded', function () {
                     label: 'DPS',
                     data: dpsValues,
                     backgroundColor: 'rgba(0, 0, 0, 0)', // Set background color to transparent
-                    borderColor: 'white', // Set line color
+                    borderColor: '#FFFFFF', // Set line color
                     borderWidth: 2,
                     pointRadius: 4, // Set point radius
-                    pointBackgroundColor: 'white', // Set point color
-                    pointBorderColor: 'white', // Set point border color
+                    pointBackgroundColor: '#FFFFFF', // Set point color
+                    pointBorderColor: '#FFFFFF', // Set point border color
                     hoverRadius: 16 // Set hover radius to increase area for tooltip trigger
                 }]
             },
@@ -72,19 +72,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            color: 'white' // Set text color for y-axis
+                            color: '#FFFFFF' // Set text color for y-axis
                         },
                         grid: {
-                            color: 'rgba(128, 128, 128, 0.2)' // Set grid line color for y-axis
+                            color: '#666666' // Set grid line color for y-axis
                         }
                     },
                     x: {
                         ticks: {
-                            color: 'white', // Set text color for x-axis
+                            color: '#FFFFFF', // Set text color for x-axis
                             maxTicksLimit: 21 // Specify the maximum number of ticks
                         },
                         grid: {
-                            display: false // Hide grid lines on x-axis
+                            color: '#666666' // Set grid line color for x-axis
                         }
                     }
                 },
@@ -104,19 +104,18 @@ document.addEventListener('DOMContentLoaded', function () {
                         },
                         backgroundColor: 'rgba(0, 0, 0, 0.8)', // Tooltip background color
                         titleFont: {
-                            family: 'Arial', // Tooltip title font family
-                            size: 14, // Tooltip title font size
-                            weight: 'bold', // Tooltip title font weight
-                            color: '#ffffff' // Tooltip title font color
+                            family: 'Arial',
+                            size: 14,
+                            weight: 'bold',
+                            color: '#FFFFFF'
                         },
                         bodyFont: {
-                            family: 'Arial', // Tooltip body font family
-                            size: 12, // Tooltip body font size
-                            color: '#ffffff' // Tooltip body font color
+                            family: 'Arial',
+                            size: 12,
+                            color: '#FFFFFF'
                         },
-                        cornerRadius: 4, // Tooltip corner radius
-                        padding: 10, // Tooltip padding
-                        displayColors: false // Hide tooltip item colors
+                        borderColor: '#FFFFFF',
+                        borderWidth: 1
                     }
                 }
             }
