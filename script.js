@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const userDexterityInput = document.getElementById('userDexterity');
     const userCritChanceInput = document.getElementById('userCritChance');
     const userCritDamageInput = document.getElementById('userCritDamage');
+    const enemyDefenseInput = document.getElementById('enemyDefense');
 
     const calculateBtn = document.getElementById('calculateBtn');
     const dpsChart = document.getElementById('dpsChart').getContext('2d');
@@ -21,19 +22,20 @@ document.addEventListener('DOMContentLoaded', function () {
         const userDexterity = parseFloat(userDexterityInput.value) || 75;
         const userCritChance = parseFloat(userCritChanceInput.value) / 100 || 0;
         const userCritDamage = parseFloat(userCritDamageInput.value) / 100 || 0;
+        const enemyDefense = parseFloat(enemyDefenseInput.value) || 0;
 
         // Calculate DPS
         const weaponAverage = (minDamage + maxDamage) / 2;
         const rateOfFireConfigured = rateOfFire / 100;
-        const dps = (((((weaponAverage * (0.5 + userAttack / 50))) - 0) * shotCount) *
+        const dps = (((((weaponAverage * (0.5 + userAttack / 50))) - enemyDefense) * shotCount) *
             ((1.5 + 6.5 * (userDexterity / 75)) * rateOfFireConfigured)) *
             (1 + (userCritChance * userCritDamage));
 
         // Update chart
-        updateChart(weaponAverage, userAttack, userDexterity, rateOfFireConfigured, userCritChance, userCritDamage, shotCount);
+        updateChart(weaponAverage, userAttack, userDexterity, rateOfFireConfigured, userCritChance, userCritDamage, shotCount, enemyDefense);
     }
 
-    function updateChart(weaponAverage = 0, userAttack = 0, userDexterity = 0, rateOfFireConfigured = 0, userCritChance = 0, userCritDamage = 0, shotCount = 0) {
+    function updateChart(weaponAverage = 0, userAttack = 0, userDexterity = 0, rateOfFireConfigured = 0, userCritChance = 0, userCritDamage = 0, shotCount = 0, enemyDefense = 0) {
         if (window.myChart !== undefined) {
             window.myChart.destroy();
         }
@@ -47,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 
         // Set Chart.js options
-        Chart.defaults.color = '#FFFFFF'; // Set default text color
+        Chart.defaults.color = 'white'; // Set default text color
         Chart.defaults.font.family = 'Arial'; // Set default font family
         Chart.defaults.font.size = 12; // Set default font size
 
@@ -59,12 +61,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     label: 'DPS',
                     data: dpsValues,
                     backgroundColor: 'rgba(0, 0, 0, 0)', // Set background color to transparent
-                    borderColor: '#FFFFFF', // Set line color
+                    borderColor: 'white', // Set line color
                     borderWidth: 2,
                     pointRadius: 4, // Set point radius
-                    pointBackgroundColor: '#FFFFFF', // Set point color
-                    pointBorderColor: '#FFFFFF', // Set point border color
-                    hoverRadius: 16 // Set hover radius to increase area for tooltip trigger
+                    pointBackgroundColor: 'white', // Set point color
+                    pointBorderColor: 'white', // Set point border color
+                    hoverRadius: 32 // Set hover radius to increase area for tooltip trigger
                 }]
             },
             options: {
@@ -72,28 +74,33 @@ document.addEventListener('DOMContentLoaded', function () {
                     y: {
                         beginAtZero: true,
                         ticks: {
-                            color: '#FFFFFF' // Set text color for y-axis
+                            color: 'white' // Set text color for y-axis
                         },
                         grid: {
-                            color: '#666666' // Set grid line color for y-axis
+                            color: 'rgba(128, 128, 128, 0.2)' // Set grid line color for y-axis
                         }
                     },
                     x: {
                         ticks: {
-                            color: '#FFFFFF', // Set text color for x-axis
+                            color: 'white', // Set text color for x-axis
                             maxTicksLimit: 21 // Specify the maximum number of ticks
                         },
                         grid: {
-                            color: '#666666' // Set grid line color for x-axis
+                            display: false // Hide grid lines on x-axis
                         }
                     }
                 },
                 plugins: {
-                    legend: {
-                        display: false // Hide legend
-                    },
                     tooltip: {
-                        caretPadding: 10,
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Set the background color of the tooltip
+                        titleFontFamily: 'Arial', // Set the font family for the tooltip title
+                        titleFontSize: 14, // Set the font size for the tooltip title
+                        titleFontColor: 'white', // Set the font color for the tooltip title
+                        bodyFontFamily: 'Arial', // Set the font family for the tooltip body
+                        bodyFontSize: 12, // Set the font size for the tooltip body
+                        bodyFontColor: 'white', // Set the font color for the tooltip body
+                        bodySpacing: 4, // Set the spacing between lines in the tooltip body
+                        displayColors: false,
                         callbacks: {
                             label: function (context) {
                                 const index = context.dataIndex;
@@ -102,20 +109,16 @@ document.addEventListener('DOMContentLoaded', function () {
                                 return `Defense: ${defense}, DPS: ${dps}`;
                             }
                         },
-                        backgroundColor: '#1A1A1A',
-                        titleFont: {
-                            family: 'Arial',
-                            size: 14,
-                            weight: 'bold',
-                            color: '#FFFFFF'
-                        },
-                        bodyFont: {
-                            family: 'Arial',
-                            size: 12,
-                            color: '#FFFFFF'
-                        },
-                        borderColor: '#FFFFFF',
-                        borderWidth: 1
+                        caretPadding: 8,
+                        caretSize: 0,
+                        positioners: {
+                            point: function (tooltipModel, coordinates, eventOffset) {
+                                return {
+                                    x: coordinates.x,
+                                    y: coordinates.y - 10
+                                };
+                            }
+                        }
                     }
                 }
             }
@@ -125,4 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
     calculateDPS(); // Initialize the graph immediately when the site is opened
 
     calculateBtn.addEventListener('click', calculateDPS);
+    
+    console.log(defenseValues);
+    console.log(dpsValues);
 });
