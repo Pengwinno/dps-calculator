@@ -1,5 +1,4 @@
-
-\.container {
+.container {
     display: flex;
     justify-content: space-between; /* Align items with space between them */
     margin-top: 50px;
